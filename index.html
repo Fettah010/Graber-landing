@@ -519,11 +519,11 @@
                 btn.style.transform = '';
             }, 150);
             
-            // Simulate download
+            // Download latest release
             setTimeout(() => {
                 const link = document.createElement('a');
-                link.href = 'https://github.com/Fettah010/Graber/releases/download/v1.0.0/graber-win-Setup.exe';
-                link.download = 'graber_setup_v2.1.0.exe';
+                link.href = 'https://github.com/Fettah010/Graber/releases/latest/download/graber-win-Setup.exe';
+                link.download = 'graber_setup_latest.exe';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);

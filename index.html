@@ -12,539 +12,542 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            overflow-x: hidden;
-            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a1a2e 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
             color: white;
-            min-height: 100vh;
-            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Animated stars background */
-        .stars {
+        /* Animated gradient background */
+        .bg-gradient {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            background: radial-gradient(ellipse at top, #1e293b 0%, #0f172a 50%, #020617 100%);
+            z-index: -2;
         }
 
-        .star {
+        /* Floating orbs */
+        .orb {
             position: absolute;
-            background: white;
             border-radius: 50%;
-            animation: twinkle 2s infinite alternate;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.2); }
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
         }
 
-        /* Glass container */
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            top: 60%;
+            right: 20%;
+            animation-delay: -2s;
+        }
+
+        .orb-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            bottom: 20%;
+            left: 10%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(30px) rotate(240deg);
+            }
+        }
+
+        /* Main container */
         .container {
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 1rem;
+            padding: 2rem;
             position: relative;
+            z-index: 1;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
+        /* Hero card */
+        .hero-card {
+            background: rgba(15, 23, 42, 0.5);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 32px;
+            padding: 4rem 3rem;
             text-align: center;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(148, 163, 184, 0.05);
+            max-width: 600px;
             width: 100%;
-            animation: cardFloat 6s ease-in-out infinite;
             position: relative;
             overflow: hidden;
-            margin: 1rem;
         }
 
-        @keyframes cardFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.3), transparent);
         }
 
-        /* Logo and title */
+        /* Logo */
         .logo {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             border-radius: 20px;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            font-weight: bold;
-            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
-            animation: logoGlow 2s ease-in-out infinite alternate;
-            position: relative;
-        }
-
-        @keyframes logoGlow {
-            0% { box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3); }
-            100% { box-shadow: 0 15px 35px rgba(30, 58, 138, 0.5); }
-        }
-
-        h1 {
-            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            min-height: 72px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .typing-animation {
-            overflow: hidden;
-            border-right: 3px solid #3b82f6;
-            white-space: nowrap;
-            animation: typing 1s steps(6) 0.5s forwards, blink 1s infinite;
-            width: 0;
-            display: inline-block;
-        }
-
-        @keyframes typing {
-            0% { width: 0; }
-            100% { width: 6ch; }
-        }
-
-        @keyframes blink {
-            0%, 50% { border-color: #3b82f6; }
-            51%, 100% { border-color: transparent; }
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .features {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 2.5rem;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .feature {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
-            min-width: 80px;
-        }
-
-        .feature:nth-child(1) { animation-delay: 0.3s; }
-        .feature:nth-child(2) { animation-delay: 0.6s; }
-        .feature:nth-child(3) { animation-delay: 0.9s; }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .feature-icon:hover {
-            transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .feature-icon svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .yt { color: #ff0000; }
-        .ig { 
-            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .tt { color: #ffffff; }
-
-        .feature-text {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-            text-align: center;
-        }
-
-        .download-btn {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 
-                0 10px 25px rgba(30, 58, 138, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 0 1px rgba(30, 58, 138, 0.2);
-            margin-bottom: 1.5rem;
+                0 10px 25px rgba(59, 130, 246, 0.3),
+                0 0 0 1px rgba(59, 130, 246, 0.1);
             position: relative;
-            overflow: hidden;
-            transform: perspective(1px) translateZ(0);
-            width: 100%;
-            max-width: 300px;
         }
 
-        .download-btn::before {
+        .logo::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                rgba(255, 255, 255, 0.2),
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transition: all 0.6s ease;
-        }
-
-        .download-btn::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6, #60a5fa, #3b82f6, #1e3a8a);
-            border-radius: 52px;
+            inset: -2px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6);
+            border-radius: 22px;
             z-index: -1;
-            background-size: 300% 300%;
-            animation: gradientShift 3s ease infinite;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
+            background-size: 200% 200%;
+            animation: gradientRotate 3s linear infinite;
         }
 
-        @keyframes gradientShift {
+        .logo:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes gradientRotate {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .download-btn:hover {
-            transform: translateY(-3px) scale(1.02);
+        /* Typography */
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(148, 163, 184, 0.8);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Platform badges */
+        .platforms {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .platform-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 16px;
+            padding: 0.875rem 1.25rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .platform-badge::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(59, 130, 246, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .platform-badge:hover {
+            transform: translateY(-2px);
+            border-color: rgba(148, 163, 184, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .platform-badge:hover::before {
+            opacity: 1;
+        }
+
+        .platform-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .platform-badge:hover .platform-icon {
+            transform: scale(1.1);
+        }
+
+        .platform-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Download button */
+        .download-section {
+            margin-bottom: 2rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border: none;
+            border-radius: 16px;
+            padding: 1rem 2rem;
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 
-                0 20px 40px rgba(30, 58, 138, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 0 1px rgba(30, 58, 138, 0.3);
+                0 10px 25px rgba(59, 130, 246, 0.3),
+                0 0 0 1px rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 240px;
+            justify-content: center;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 20px 40px rgba(59, 130, 246, 0.4),
+                0 0 0 1px rgba(59, 130, 246, 0.2);
         }
 
         .download-btn:hover::before {
-            left: 100%;
-        }
-
-        .download-btn:hover::after {
             opacity: 1;
         }
 
         .download-btn:active {
-            transform: translateY(-1px) scale(1.01);
-            transition: all 0.1s ease;
+            transform: translateY(0);
+            transition: transform 0.1s ease;
         }
 
-        .download-btn-content {
+        .download-btn span {
             position: relative;
             z-index: 1;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .download-icon {
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
         }
 
         .download-btn:hover .download-icon {
             transform: translateY(2px);
         }
 
-        /* Ripple effect */
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
+        /* App info */
+        .app-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(148, 163, 184, 0.7);
+            font-size: 0.875rem;
         }
 
-        .version-info {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 1rem;
+        .info-icon {
+            color: #10b981;
+            font-size: 1rem;
         }
 
+        /* Free badge */
         .free-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            animation: badgeBounce 2s ease-in-out infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
-        @keyframes badgeBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .free-badge::before {
+            content: '✓';
+            font-weight: bold;
         }
 
-        /* Floating particles */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(30, 58, 138, 0.4);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(120deg); }
-            66% { transform: translateY(20px) rotate(240deg); }
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .glass-card {
-                padding: 2rem 1.5rem;
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
             }
             
-            h1 {
-                font-size: 2.5rem;
-                min-height: 60px;
+            .hero-card {
+                padding: 3rem 2rem;
+                border-radius: 24px;
             }
             
-            .features {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            
-            .feature {
-                flex-direction: row;
+            .platforms {
                 gap: 1rem;
-                width: 100%;
-                justify-content: center;
             }
             
-            .feature-icon {
-                margin-bottom: 0;
+            .platform-badge {
+                padding: 0.75rem 1rem;
             }
             
             .download-btn {
-                padding: 1rem 2rem;
+                padding: 0.875rem 1.5rem;
                 font-size: 1rem;
+                min-width: 200px;
+            }
+            
+            .app-info {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
         }
 
-        @media (max-width: 400px) {
-            h1 {
-                font-size: 2rem;
+        @media (max-width: 480px) {
+            .hero-card {
+                padding: 2rem 1.5rem;
             }
             
-            .subtitle {
-                font-size: 1rem;
+            .hero-subtitle {
+                font-size: 1.125rem;
+                margin-bottom: 2.5rem;
             }
             
-            .logo {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
+            .platforms {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+            
+            .platform-badge {
+                width: 100%;
+                max-width: 200px;
+                justify-content: center;
+            }
+        }
+
+        /* Smooth scrolling and animations */
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .fade-in-delay {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .fade-in-delay-2 {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
+    <div class="bg-gradient"></div>
+    
+    <!-- Floating orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
     
     <div class="container">
-        <div class="glass-card">
-            <div class="logo">G</div>
-            <h1><span class="typing-animation">Graber</span></h1>
-            <p class="subtitle">Download videos from any social platform</p>
+        <div class="hero-card">
+            <!-- Logo -->
+            <div class="logo fade-in">G</div>
             
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon yt">
-                        <!-- YouTube SVG -->
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </div>
-                    <span class="feature-text">YouTube</span>
+            <!-- Main heading -->
+            <h1 class="hero-title fade-in">Graber</h1>
+            <p class="hero-subtitle fade-in-delay">Download videos from any social platform with ease. Fast, free, and reliable.</p>
+            
+            <!-- Platform badges -->
+            <div class="platforms fade-in-delay">
+                <div class="platform-badge">
+                    <svg class="platform-icon" viewBox="0 0 24 24" fill="#ff0000">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span class="platform-name">YouTube</span>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon ig">
-                        <!-- Instagram SVG -->
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                    </div>
-                    <span class="feature-text">Instagram</span>
+                
+                <div class="platform-badge">
+                    <svg class="platform-icon" viewBox="0 0 24 24" fill="url(#instagram-gradient)">
+                        <defs>
+                            <linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#f09433"/>
+                                <stop offset="25%" style="stop-color:#e6683c"/>
+                                <stop offset="50%" style="stop-color:#dc2743"/>
+                                <stop offset="75%" style="stop-color:#cc2366"/>
+                                <stop offset="100%" style="stop-color:#bc1888"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span class="platform-name">Instagram</span>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon tt">
-                        <!-- TikTok SVG -->
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.03 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.03-1.49.18-2.9 2.14-5.57 4.99-6.32.52-.14 1.06-.22 1.6-.26-.14.55-.34 1.08-.6 1.58-.46.98-1.18 1.83-2.08 2.43.76-.22 1.48-.55 2.12-.98.08-.06.16-.12.24-.18.03.86.08 1.73.15 2.59.17 2.12 1.27 4.05 2.97 5.26.87.62 1.94 1 3.03 1.03.5.01 1-.08 1.48-.25 1.36-.52 2.28-1.87 2.21-3.34.03-2.24.04-4.48.01-6.72.02-.17.02-.33.02-.5 0-.5-.07-1-.2-1.5-.25-1.17-.87-2.24-1.78-3.03-.91-.79-2.06-1.29-3.26-1.35-.05-.01-.11-.01-.16-.02z"/>
-                        </svg>
-                    </div>
-                    <span class="feature-text">TikTok</span>
+                
+                <div class="platform-badge">
+                    <svg class="platform-icon" viewBox="0 0 24 24" fill="white">
+                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.03 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.03-1.49.18-2.9 2.14-5.57 4.99-6.32.52-.14 1.06-.22 1.6-.26-.14.55-.34 1.08-.6 1.58-.46.98-1.18 1.83-2.08 2.43.76-.22 1.48-.55 2.12-.98.08-.06.16-.12.24-.18.03.86.08 1.73.15 2.59.17 2.12 1.27 4.05 2.97 5.26.87.62 1.94 1 3.03 1.03.5.01 1-.08 1.48-.25 1.36-.52 2.28-1.87 2.21-3.34.03-2.24.04-4.48.01-6.72.02-.17.02-.33.02-.5 0-.5-.07-1-.2-1.5-.25-1.17-.87-2.24-1.78-3.03-.91-.79-2.06-1.29-3.26-1.35-.05-.01-.11-.01-.16-.02z"/>
+                    </svg>
+                    <span class="platform-name">TikTok</span>
                 </div>
             </div>
             
-            <button class="download-btn" onclick="downloadApp(event)">
-                <span class="download-btn-content">
-                    <span class="download-icon">⬇️</span>
-                    Download for Windows
-                </span>
-            </button>
+            <!-- Download button -->
+            <div class="download-section fade-in-delay-2">
+                <button class="download-btn" onclick="downloadApp(event)">
+                    <span>
+                        <span class="download-icon">⬇</span>
+                        Download for Windows
+                    </span>
+                </button>
+            </div>
             
-            <div class="version-info">Version 2.1.0 • Windows 10/11</div>
+            <!-- App info -->
+            <div class="app-info fade-in-delay-2">
+                <div class="info-item">
+                    <span class="info-icon">📱</span>
+                    <span>Version 2.1.0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">💻</span>
+                    <span>Windows 10/11</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">⚡</span>
+                    <span>Lightning fast</span>
+                </div>
+            </div>
             
-            <div class="free-badge">100% Free • No Ads</div>
+            <!-- Free badge -->
+            <div class="free-badge fade-in-delay-2">100% Free • No Ads</div>
         </div>
-        
-        <!-- Floating particles -->
-        <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
-        <div class="particle" style="top: 60%; left: 85%; animation-delay: 2s;"></div>
-        <div class="particle" style="top: 30%; left: 75%; animation-delay: 4s;"></div>
-        <div class="particle" style="top: 80%; left: 20%; animation-delay: 1s;"></div>
     </div>
 
     <script>
-        // Create animated stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const numberOfStars = 100;
-            
-            for (let i = 0; i < numberOfStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = Math.random() * 2 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
-        // Download function with ripple effect
         function downloadApp(e) {
             const btn = e.currentTarget;
-            const rect = btn.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
             
-            // Create ripple element
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            
-            // Add ripple to button
-            btn.appendChild(ripple);
-            
-            // Remove ripple after animation
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-            
-            // Button press animation
-            btn.style.transform = 'translateY(-1px) scale(0.98)';
+            // Add click feedback
+            btn.style.transform = 'translateY(0) scale(0.98)';
             setTimeout(() => {
                 btn.style.transform = '';
             }, 150);
             
-            // Actually trigger download
+            // Simulate download
             setTimeout(() => {
                 const link = document.createElement('a');
                 link.href = 'https://github.com/Fettah010/Graber/releases/download/v1.0.0/graber-win-Setup.exe';
-                link.download = 'graber_setup_v1.0.exe';
+                link.download = 'graber_setup_v2.1.0.exe';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
             }, 200);
         }
 
-        // Add mouse move effect
+        // Add subtle parallax effect
         document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.glass-card');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
+            const { clientX: x, clientY: y } = e;
+            const { innerWidth: w, innerHeight: h } = window;
             
-            cards.forEach(card => {
-                const moveX = (x - 0.5) * 10;
-                const moveY = (y - 0.5) * 10;
-                card.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            const moveX = (x / w - 0.5) * 20;
+            const moveY = (y / h - 0.5) * 20;
+            
+            document.querySelector('.hero-card').style.transform = 
+                `translate(${moveX * 0.5}px, ${moveY * 0.5}px)`;
+                
+            // Move orbs slightly
+            document.querySelectorAll('.orb').forEach((orb, i) => {
+                const multiplier = (i + 1) * 0.1;
+                orb.style.transform = 
+                    `translate(${moveX * multiplier}px, ${moveY * multiplier}px)`;
             });
         });
-
-        // Initialize
-        createStars();
     </script>
 </body>
 </html>
-
